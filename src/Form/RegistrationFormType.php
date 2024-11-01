@@ -5,6 +5,8 @@ namespace App\Form;
 use App\Entity\Users;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -18,6 +20,27 @@ class RegistrationFormType extends AbstractType
     {
         $builder
             ->add('email')
+            ->add('firstname')
+            ->add('lastname')
+            ->add('pseudo')
+            ->add('address')
+            ->add('mobilephone')
+            ->add('birthday')
+//            ->add('profilePicture', FileType::class, [])
+            ->add('isDriver', CheckboxType::class, [
+                'label' => 'Je souhaite être conducteur',
+                'required' => false,
+                'mapped' => true,
+            ])
+//            ->add('roles', ChoiceType::class, [
+//                'mapped' => false,
+//                'choices' => [
+//                    'ROLE_PASSAGER' => 'ROLE_PASSAGER',
+//                    'ROLE_CHAUFFEUR' => 'ROLE_CHAUFFEUR',
+//                ],
+//                'multiple' => true,
+//                'expanded' => true,
+//            ])
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
                 'constraints' => [

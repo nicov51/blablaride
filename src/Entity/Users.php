@@ -49,14 +49,19 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $birthday = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $profilepicture = null;
+
+
+//    #[ORM\Column(length: 255, nullable: true)]
+//    private ?string $profilepicture = null;
 
     /**
      * @var Collection<int, Roles>
      */
     #[ORM\ManyToMany(targetEntity: Roles::class, mappedBy: 'users')]
     private Collection $roles;
+
+    #[ORM\Column(nullable: true)]
+    private ?bool $isdriver = null;
 
     public function __construct()
     {
@@ -152,14 +157,14 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getAdress(): ?string
+    public function getAddress(): ?string
     {
-        return $this->adress;
+        return $this->address;
     }
 
-    public function setAdress(string $adress): static
+    public function setAddress(string $address): static
     {
-        $this->adress = $adress;
+        $this->address = $address;
 
         return $this;
     }
@@ -188,17 +193,17 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getProfilepicture(): ?string
-    {
-        return $this->profilepicture;
-    }
-
-    public function setProfilepicture(?string $profilepicture): static
-    {
-        $this->profilepicture = $profilepicture;
-
-        return $this;
-    }
+//    public function getProfilepicture(): ?string
+//    {
+//        return $this->profilepicture;
+//    }
+//
+//    public function setProfilepicture(?string $profilepicture): static
+//    {
+//        $this->profilepicture = $profilepicture;
+//
+//        return $this;
+//    }
 
     /**
      * @return array
@@ -207,7 +212,7 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $roles = [];
         foreach ($this->roles as $role) {
-            $roles[] = $role->getRole();
+            $roles[] = $role->getLibelle();
         }
         return $roles;
     }
@@ -230,4 +235,17 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    public function isdriver(): ?bool
+    {
+        return $this->isdriver;
+    }
+
+    public function setIsDriver(?bool $isdriver): self
+    {
+        $this->isdriver = $isdriver;
+
+        return $this;
+    }
+
 }
